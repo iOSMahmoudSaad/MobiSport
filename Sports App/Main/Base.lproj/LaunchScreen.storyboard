@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,30 +16,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kUX-Tk-Iog">
-                                <rect key="frame" x="67" y="264" width="280" height="280"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="large" translatesAutoresizingMaskIntoConstraints="NO" id="1Qr-df-UrR">
+                                <rect key="frame" x="25" y="308" width="365" height="280"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="D4y-sb-zxu"/>
-                                    <constraint firstAttribute="width" secondItem="kUX-Tk-Iog" secondAttribute="height" multiplier="1:1" id="gwN-qb-Css"/>
-                                    <constraint firstAttribute="height" constant="280" id="jTv-bp-oud"/>
-                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YEa-pe-Nra"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <color key="tintColor" red="0.074308432640000005" green="0.065932072699999997" blue="0.087137229740000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="YEa-pe-Nra" firstAttribute="trailing" secondItem="kUX-Tk-Iog" secondAttribute="trailing" constant="67" id="Uxz-zK-uP5"/>
-                            <constraint firstItem="kUX-Tk-Iog" firstAttribute="top" secondItem="YEa-pe-Nra" secondAttribute="top" constant="220" id="cVh-j6-hXs"/>
-                            <constraint firstItem="kUX-Tk-Iog" firstAttribute="leading" secondItem="YEa-pe-Nra" secondAttribute="leading" constant="67" id="dW0-oj-tnH"/>
-                            <constraint firstItem="YEa-pe-Nra" firstAttribute="bottom" secondItem="kUX-Tk-Iog" secondAttribute="bottom" constant="236" id="pyM-Wl-7ml"/>
+                            <constraint firstItem="YEa-pe-Nra" firstAttribute="trailing" secondItem="1Qr-df-UrR" secondAttribute="trailing" constant="24" id="D4V-p8-SgN"/>
+                            <constraint firstItem="1Qr-df-UrR" firstAttribute="top" secondItem="YEa-pe-Nra" secondAttribute="top" constant="264" id="Y3Q-8n-cVY"/>
+                            <constraint firstItem="YEa-pe-Nra" firstAttribute="bottom" secondItem="1Qr-df-UrR" secondAttribute="bottom" constant="274" id="e1A-1d-unR"/>
+                            <constraint firstItem="1Qr-df-UrR" firstAttribute="leading" secondItem="YEa-pe-Nra" secondAttribute="leading" constant="25" id="nt1-AE-Hs3"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="large" width="600" height="480"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

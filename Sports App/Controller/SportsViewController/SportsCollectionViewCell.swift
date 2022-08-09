@@ -7,7 +7,7 @@
 
 import UIKit
 
-import SDWebImage
+ 
 
 class SportsCollectionViewCell: UICollectionViewCell {
     

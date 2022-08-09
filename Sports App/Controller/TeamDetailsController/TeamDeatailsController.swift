@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+
 class TeamDeatailsController: UIViewController {
     
     var TeamLeague12 : String?

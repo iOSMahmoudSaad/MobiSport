@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class LeagueDetailsController: UIViewController {
     var cellSelect : String?
@@ -14,7 +15,13 @@ class LeagueDetailsController: UIViewController {
     var LeagueYoutubeButton :String?
     var idLeague:String?
     
-   
+    let appSelegate = UIApplication.shared.delegate as! AppDelegate
+    var FavProduct = [Leaguess]()
+    let favoriteDB = DBManager.sharedInstance
+    var isAddedTofavorite  = false
+    var legus:League?
+    @IBOutlet weak var favoritebtn: UIBarButtonItem!
+    
     @IBOutlet weak var upCommingCollection: UICollectionView!
     {
         didSet{
@@ -58,16 +65,45 @@ class LeagueDetailsController: UIViewController {
         let TeamPresenter: ITeamPresenter = TeamPresenter(iTeamView: self)// 1
         TeamPresenter.fetchData(endPoint: "search_all_teams.php?l=English%20Premier%20League")
 
-         
+         favoriteItem()
+         fetchproduct()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+         favoriteItem()
+         fetchproduct()
+    }
 
     @IBAction func FavoriteAction(_ sender: Any) {
+        if isAddedTofavorite {
+            let alert = UIAlertController(title: "This League is already in Favorite", message: "Check your Favorite", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Show Favorite", style: .default, handler: { [self] UIAlertAction in
+                favoritebtn.image = UIImage(systemName: "heart.fill")
+                let favorites = FavoriteController()
+                navigationController?.pushViewController(favorites, animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            favoritebtn.image = UIImage(systemName: "heart.fill")
+            favoriteDB.addLeague(leagueTitle: LeagueNames ?? "", leagueImage: LeagueImages ?? "", leagueYoutube: LeagueYoutubeButton ?? "",idLeague: legus?.idLeague ?? "" ,appDelegate: appSelegate)
+            
+        }
         
         
     }
-    
-
+    func favoriteItem()
+        {
+            for item in FavProduct
+            {
+                if item.idLeague == legus?.idLeague{
+                    isAddedTofavorite = true
+                    favoritebtn.image = UIImage(systemName: "heart.fill")
+                }
+            }
+        }
+    func fetchproduct(){
+        FavProduct = favoriteDB.fetchData(appDelegate: appSelegate)
+    }
 }
 extension LeagueDetailsController :
     UICollectionViewDelegate, UICollectionViewDataSource
@@ -136,6 +172,27 @@ extension LeagueDetailsController :
            
             return eventCell
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(collectionView == teamsCV)
+        {
+        let teamDetails =
+        storyboard?.instantiateViewController(withIdentifier: "teamCv")
+        as! TeamDeatailsController
+        teamDetails.TeamDescription12 = teamss[indexPath.row].strDescriptionEN
+        teamDetails.TeamStadium12 = teamss[indexPath.row].strStadium
+        teamDetails.TeamInformedYear12 = teamss[indexPath.row].intFormedYear
+        teamDetails.TeamImage12 = teamss[indexPath.row].strTeamBadge
+        teamDetails.TeamLeague12 = teamss[indexPath.row].strLeague
+        teamDetails.TeamName12 = teamss[indexPath.row].strTeam
+        teamDetails.TeamSport12 = teamss[indexPath.row].strSport
+        navigationController?.pushViewController(teamDetails, animated: true)
+        }else{
+            let team =  
+            storyboard?.instantiateViewController(withIdentifier: "teamCv")
+            as! TeamDeatailsController
+        }
+        
     }
     
     

@@ -83,13 +83,7 @@ extension FavoriteController :UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let leagueDetail = storyboard?.instantiateViewController(withIdentifier:"DetailsVc")
-        as! LeagueDetailsController
-        leagueDetail.cellSelect = fave[indexPath.row].idLeague
-        leagueDetail.LeagueNames  = fave[indexPath.row].strLeague
-        navigationController?.pushViewController(leagueDetail, animated: true)
-    }
+  
     
 }
 extension FavoriteController:DeletionDelegate

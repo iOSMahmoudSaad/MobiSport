@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class LeaguesViewController: UIViewController {
     var leagues = [League]()
-    
+   
     @IBOutlet weak var LeagueTableView: UITableView!
     {
         didSet{
@@ -52,12 +53,23 @@ extension LeaguesViewController :UITableViewDataSource,UITableViewDelegate
     
     
 }
-extension LeaguesViewController{
+extension LeaguesViewController:
+    UICollectionViewDelegateFlowLayout{
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(tableView.frame.size.width * 0.3)
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 8
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let leagueDetails = storyboard?.instantiateViewController(withIdentifier:"DetailsVc")
+        as! LeagueDetailsController
+        leagueDetails.cellSelect = leagues[indexPath.row].idLeague
+        leagueDetails.LeagueNames  = leagues[indexPath.row].strLeague
+        leagueDetails.LeagueImages = leagues[indexPath.row].strBadge
+        leagueDetails.LeagueYoutubeButton = leagues[indexPath.row].strYoutube
+        navigationController?.pushViewController(leagueDetails, animated: true)
     }
     
 }

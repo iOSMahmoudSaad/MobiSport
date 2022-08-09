@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ViewController: UIViewController {
 
     var sports = [Sport]()
-    
+    let reachability = try! Reachability()
     @IBOutlet weak var SportCollection: UICollectionView!
     {
         didSet{
@@ -20,6 +21,24 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        switch reachability.connection {
+          case .wifi:
+            
+              print("Reachable via WiFi")
+          case .cellular:
+              print("Reachable via Cellular")
+          case .unavailable:
+            let alert = UIAlertController(title: "OOPs..", message: "No Connection", preferredStyle: .alert)
+            let tryAgain = UIAlertAction(title: "Try Again", style: .default, handler: { action in
+                self.dismiss(animated: true, completion: nil)
+        })
+            alert.addAction(tryAgain)
+             DispatchQueue.main.async(execute: {
+                self.present(alert, animated: true)
+                self.SportCollection.reloadData()
+                  })
+            print("Network not reachable")
+          }
         self.title = "Sports"
         let homePresenter: IHomePresenter = HomePresenter(iHomeView: self) // 1
         homePresenter.fetchData(endPoint: "all_sports.php")
@@ -72,6 +91,12 @@ extension ViewController :UICollectionViewDataSource,UICollectionViewDelegateFlo
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let LeagueVC = self.storyboard?.instantiateViewController(withIdentifier:"LeagueTableVC")
+        as! LeaguesViewController
+ 
+         navigationController?.pushViewController(LeagueVC, animated: true)
     }
 }
 extension ViewController: IHomeView {
